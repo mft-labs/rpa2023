@@ -33,11 +33,11 @@ class HealthCheck:
         print(header)
         print(data)
         header_flds = header.split()
-        return header_flds, data
+        return header, header_flds, data
 
     @keyword('Get Pod')
     def get_pod(self, text):
-        headers, data = self.prepare_data(text)
+        header_raw, headers, data = self.prepare_data(text)
         f = open(self.logname, 'w')
         f1 = open(self.logname+".err", 'w')
         f2 = open(self.logname+'.rpt', 'w')
@@ -56,24 +56,68 @@ class HealthCheck:
         f1.close()
         return '\nProcess of GET POD Completed'
 
+    def split_string(self,colpos,rec):
+        list = []
+        for i in range(1,len(colpos)):
+            text = str(rec[colpos[i-1]:colpos[i]])
+            if text.strip() == '':
+                list.append(' ')
+            else:
+                list.append(text.strip())
+        list.append(rec[colpos[len(colpos)-1]:])
+        return list
+
+    def find_cols(self, header_raw):
+        colpos = []
+        colpos.append(0)
+        for i in range(len(header_raw)):
+            if i+2 < len(header_raw):
+                if header_raw[i] == ' ' and header_raw[i+1] == ' ' :
+                    if header_raw[i+2] != ' ':
+                        colpos.append(i+2)
+        return colpos
+
     @keyword('Get Route')
     def get_route(self, text):
         logfile2 = self.logname
         base = os.path.basename(self.logname)
         logfile = 'get_route_'+os.path.basename(self.logname)
         logfile = logfile2.replace(base, logfile)
-        headers, data = self.prepare_data(text)
+        header_raw, headers, data = self.prepare_data(text)
+        f = open(logfile,'w')
+        colpos = self.find_cols(header_raw)
+        f.write(str(colpos)+'\n')
         index = headers.index('PORT')
-        errorlog = open(logfile, 'w')
+        errorlog = open(logfile+".err", 'w')
+
+        f.write(str(headers)+'\n')
+        error_occurred = False
         for rec in data:
-            fields = rec.split()
-            if fields[index] == 'https':
+            fields = self.split_string(colpos,rec)
+            f.write(str(fields)+'\n')
+            f.write('{}\n'.format(fields[index]))
+            if fields[index] == 'https' or fields[index] == 'http':
                 label = fields[0]
-                url = fields[index]+'://'+str(fields[1])+str(fields[2])
-                resp = requests.get(url)
-                if resp.status_code != 200:
-                    errorlog.write('{:20s} Name: {:40s} Url: {:60s} not reachable, status code {}'.format(self.get_date_time2(),label,url, resp.status_code))
+                url = fields[index].strip()+'://'+str(fields[1]).strip()+str(fields[2]).strip()
+                try:
+                    resp = requests.get(url)
+                    f.write('{:50s} {:75s} {}'.format(label, url, resp.status_code))
+                    if resp.status_code != 200:
+                        error_occurred = True
+                        errorlog.write('{} Name: {} Url: {} not reachable, status code {}'.format(self.get_date_time2(),label,url, resp.status_code))
+                        errorlog.write('\n')
+                    else:
+                        f.write('{} Name: {} Url: {} reachable, status code {}'.format(self.get_date_time2(),label,url, resp.status_code))
+                except Exception as e:
+                    errorlog.write('{} Name: {} Url: {} not reachable, Exception raised {}'.format(self.get_date_time2(),label,url,e))
+                    errorlog.write('\n')
+                    error_occurred = True
         errorlog.close()
+        f.close()
+        if error_occurred:
+            raise Exception("Error occurred while connecting to end points, please check logs")
+        else:
+            return ""
 
 
 
