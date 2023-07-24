@@ -14,6 +14,5 @@ Get Pod
 Get Route
     ${text}=        Run             oc get route
     ${result}=      Get Route       ${text}
-    Log To Console  ${result}
-    Log             ${text}
+    Log             ${result}
 
