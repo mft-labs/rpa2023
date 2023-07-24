@@ -1,16 +1,19 @@
 *** Settings ***
 Library     OperatingSystem
 Library     String
-Library     ./ProcessLib.py     ${LOGNAME}
+Library     ./HealthCheck.py     ${LOGNAME}
 
 *** Test Cases ***
 
-Check Containers
-    ${output}=      Run     oc get pods
-    @{lines}=       Split To Lines      ${output}   1
-    ${headline}     Get Line            ${output}   0
-    @{header}       Split String        ${headline}
-    ${result}=      Process Data    ${output}   ${header}     ${lines}
+Get Pod
+    ${text}=        Run     oc get pod
+    ${result}=      Get Pod     ${text}
     Log To Console  ${result}
-    Log     ${output}
+    Log     ${text}
+
+Get Route
+    ${text}=        Run     oc get route
+    ${result}=      Get Route   ${text}
+    Log To Console  ${result}
+    Log     ${text}
 

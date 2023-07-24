@@ -3,3 +3,4 @@ rpaenv/**
 *.xml
 *.html
 test*log*
+getpod*

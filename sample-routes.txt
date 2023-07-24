@@ -1,0 +1,19 @@
+NAME                                         HOST/PORT                                 PATH              SERVICES                         PORT      TERMINATION     WILDCARD
+b2bi-sfg-ac-external-route-gateway           10.29.29.211                              /gateway          b2bi-sfg-ac-frontend-svc         myfg      edge/Redirect   None
+b2bi-sfg-ac-external-route-myfg              10.29.29.211                              /myfg             b2bi-sfg-ac-frontend-svc         myfg      edge/Redirect   None
+b2bi-sfg-api-internal-route                  b2bi-api-sit.apps.opn-dev4-ch.btmna.com                     b2bi-sfg-api-frontend-svc        https     reencrypt       None
+b2bi-sfg-api-internal-route-b2bapi           b2bi-api-sit.apps.opn-dev4-ch.btmna.com   /B2BAPIs/svc      b2bi-sfg-api-frontend-svc        https     reencrypt       None
+b2bi-sfg-api-internal-route-customization    b2bi-api-sit.apps.opn-dev4-ch.btmna.com   /propertyUI/app   b2bi-sfg-api-frontend-svc        https     reencrypt       None
+b2bi-sfg-asi-internal-route                  b2bi-asi-sit.apps.opn-dev4-ch.btmna.com                     b2bi-sfg-asi-frontend-svc        https     reencrypt       None
+b2bi-sfg-asi-internal-route-dashboard        b2bi-asi-sit.apps.opn-dev4-ch.btmna.com   /dashboard        b2bi-sfg-asi-frontend-svc        https     reencrypt       None
+b2bi-sfg-asi-internal-route-dashboard-test   b2bi-asi2.apps.opn-dev4-ch.btmna.com      /dashboard        b2bi-sfg-asi-frontend-svc-test   https     reencrypt       None
+b2bi-sfg-asi-internal-route-filegateway      b2bi-asi-sit.apps.opn-dev4-ch.btmna.com   /filegateway      b2bi-sfg-asi-frontend-svc        https     reencrypt       None
+b2bi-sfg-asi-internal-route-mailbox          b2bi-asi-sit.apps.opn-dev4-ch.btmna.com   /mailbox          b2bi-sfg-asi-frontend-svc        https     reencrypt       None
+b2bi-sfg-asi-internal-route-myfg             b2bi-asi-sit.apps.opn-dev4-ch.btmna.com   /myfg             b2bi-sfg-asi-frontend-svc        https     reencrypt       None
+b2bi-sfg-asi-internal-route-myfilegateway    b2bi-asi-sit.apps.opn-dev4-ch.btmna.com   /myfilegateway    b2bi-sfg-asi-frontend-svc        https     reencrypt       None
+b2bi-sfg-asi-internal-route-queuewatch       b2bi-asi-sit.apps.opn-dev4-ch.btmna.com   /queueWatch       b2bi-sfg-asi-frontend-svc        https     reencrypt       None
+b2bi-sfg-asi-internal-route-soap             b2bi-asi-sit.apps.opn-dev4-ch.btmna.com   /soap             b2bi-sfg-asi-frontend-svc        soassl    reencrypt       None
+b2bi-sfg-asi-internal-route-soap-new         b2bi-asi-sit.apps.opn-dev4-ch.btmna.com   /soap-new         b2bi-sfg-asi-frontend-svc        soassl    reencrypt       None
+b2bi-sfg-asi-internal-route-soap-sync        b2bi-asi-sit.apps.opn-dev4-ch.btmna.com   /soap-sync        b2bi-sfg-asi-frontend-svc        soassl    reencrypt       None
+b2bi-sfg-asi-internal-route-soap-sync-new    b2bi-asi-sit.apps.opn-dev4-ch.btmna.com   /soap-sync-new    b2bi-sfg-asi-frontend-svc        soassl    reencrypt       None
+b2bi-sfg-asi-internal-route-wsdl             b2bi-asi-sit.apps.opn-dev4-ch.btmna.com   /wsdl             b2bi-sfg-asi-frontend-svc        soassl    reencrypt       None
