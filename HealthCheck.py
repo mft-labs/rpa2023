@@ -43,29 +43,31 @@ class HealthCheck:
         f2 = open(self.logname+'.rpt', 'w')
         f2.write(text)
         f2.close()
-        f.write('{:50s} {:20s} {:20s}'.format(headers[0], headers[2], headers[3]))
-        f.write('\n')
+        f.write('{:50s} {:20s} {:20s}\n'.format(headers[0], headers[2], headers[3]))
+        f1.write('{:50s} {:20s} {:20s}\n'.format(headers[0], headers[2], headers[3]))
+        error_occurred = False
         for elem in data:
             item = elem.split()
             f.write('{:50s} {:20s} {:20s}'.format(item[0], item[2], item[3]))
             if item[2].find('CrashLoopBackOff') != -1 or item[2].find('Error') != -1:
-                f1.write('Error occurred for {:50s}'.format(item[0]))
+                # f1.write('Error occurred for {:50s}'.format(item[0]))
+                f1.write('{:50s} {:20s} {:20s}'.format(item[0], item[2], item[3]))
                 f1.write('\n')
+                error_occurred = True
             f.write('\n')
         f.close()
         f1.close()
+        if error_occurred:
+            errors = open(self.logname+".err",'r').read()
+            raise Exception('Some or all pods having errors and may be retries to recover\n{}\n'.format(errors))
         return '\nProcess of GET POD Completed'
 
-    def split_string(self,colpos,rec):
-        list = []
-        for i in range(1,len(colpos)):
-            text = str(rec[colpos[i-1]:colpos[i]])
-            if text.strip() == '':
-                list.append(' ')
-            else:
-                list.append(text.strip())
-        list.append(rec[colpos[len(colpos)-1]:])
-        return list
+    def split_string(self, colpos, rec):
+        list1 = rec.split()
+        for i in range(len(colpos)):
+            if rec[colpos[i]] == ' ':
+                list1.insert(i, ' ')
+        return list1
 
     def find_cols(self, header_raw):
         colpos = []

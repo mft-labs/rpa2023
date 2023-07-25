@@ -8,11 +8,12 @@ Library     ./HealthCheck.py    ${LOGNAME}
 Get Pod
     ${text}=        Run         oc get pod
     ${result}=      Get Pod     ${text}
-    Log To Console  ${result}
     Log     ${text}
+    Log     ${result}
 
 Get Route
     ${text}=        Run             oc get route
     ${result}=      Get Route       ${text}
+    Log             ${text}
     Log             ${result}
 
