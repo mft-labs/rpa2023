@@ -1,7 +1,7 @@
 *** Settings ***
 Library     Selenium2Library
-Variables   ./variables/browser.py
-Resource    ./keywords/common.robot
+Variables   ../variables/browser.py
+Resource    ../keywords/common.robot
 
 
 *** comments ***

@@ -3,3 +3,19 @@ pip install robotframework
 pip install selenium robotframework-selenium2library webdrivermanager
 
 docker run -v ./sftp-in:/home/hcuser/upload -p 2222:22 -d atmoz/sftp hcuser:AbCd2023
+
+Headless chrome driver can be downloaded and installed from :
+                    https://chromedriver.chromium.org/downloads
+
+pip3 install robotframework
+pip3 install robotframework-appiumlibrary
+pip3 install robotframework-databaselibrary
+pip3 install robotframework-jsonlibrary
+pip3 install robotframework-pabot
+pip3 install robotframework-pythonlibcore
+pip3 install robotframework-redislibrary
+pip3 install robotframework-requests
+pip3 install robotframework-selenium2library
+pip3 install robotframework-seleniumlibrary
+pip3 install robotframework-stracktrace
+pip3 install robotframework-sshlibrary

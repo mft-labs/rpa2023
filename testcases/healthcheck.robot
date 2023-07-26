@@ -1,10 +1,10 @@
 *** Settings ***
 Library     OperatingSystem
 Library     String
-Library     ./lib/HealthCheck.py    ${LOGNAME}
+Library     ../lib/HealthCheck.py    ${LOGNAME}
 Library     SSHLibrary
 Library     Collections
-Variables   ./variables/sftpconfig.py
+Variables   ../variables/sftpconfig.py
 
 *** Test Cases ***
 Get Pod
