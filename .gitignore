@@ -6,3 +6,4 @@ test*log*
 getpod*
 sample*
 *.png
+**/__pycache__/**
