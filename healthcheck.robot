@@ -1,7 +1,7 @@
 *** Settings ***
 Library     OperatingSystem
 Library     String
-Library     ./HealthCheck.py    ${LOGNAME}
+Library     ./lib/HealthCheck.py    ${LOGNAME}
 
 *** Test Cases ***
 

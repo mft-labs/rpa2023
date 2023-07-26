@@ -5,3 +5,4 @@ rpaenv/**
 test*log*
 getpod*
 sample*
+*.png
