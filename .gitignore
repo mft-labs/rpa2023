@@ -7,3 +7,4 @@ getpod*
 sample*
 *.png
 **/__pycache__/**
+testfile*.txt

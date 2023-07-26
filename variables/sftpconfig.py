@@ -1,0 +1,7 @@
+SFTP_HOST = "localhost"
+SFTP_PORT = 45022
+SFTP_USERNAME = "hcuser"
+SFTP_PASSWORD = "AbCd2023"
+REMOTE_DIRECTORY = "/upload"
+LOCAL_DIRECTORY = "."
+REMOTE_FILENAME = "testfile.txt"

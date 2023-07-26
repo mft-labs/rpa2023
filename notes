@@ -2,3 +2,4 @@ https://chromedriver.chromium.org/downloads
 pip install robotframework
 pip install selenium robotframework-selenium2library webdrivermanager
 
+docker run -v ./sftp-in:/home/hcuser/upload -p 2222:22 -d atmoz/sftp hcuser:AbCd2023
