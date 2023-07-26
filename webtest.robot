@@ -6,10 +6,7 @@ Resource    ./keywords/common.robot
 
 *** comments ***
 
-Testing with Headless Browser
-
-capture image
-    Take Screenshot     webtest2
+Test cases with using headless browser
 
 *** Test Cases ***
 Open Browser
