@@ -102,7 +102,7 @@ class HealthCheck:
                 label = fields[0]
                 url = fields[index].strip()+'://'+str(fields[1]).strip()+str(fields[2]).strip()
                 try:
-                    resp = requests.get(url)
+                    resp = requests.get(url, verify=False)
                     f.write('{:50s} {:75s} {}'.format(label, url, resp.status_code))
                     if resp.status_code != 200:
                         error_occurred = True
