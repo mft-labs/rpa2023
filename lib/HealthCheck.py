@@ -2,6 +2,8 @@ from robot.api.deco import keyword, library
 from datetime import datetime
 import os
 import requests
+from urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 
 @library
 class HealthCheck:
