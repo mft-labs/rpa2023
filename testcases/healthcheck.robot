@@ -7,13 +7,13 @@ Library     Collections
 Variables   ../variables/sftpconfig.py
 
 *** Test Cases ***
-Get Pod
+Check Pods
     ${text}=    Run    oc get pod
     ${result}=  Get Pod    ${text}
     Log         ${text}
     Log         ${result}
 
-Get Route
+Check Routes
     ${text}=    Run    oc get route
     ${result}=  Get Route    ${text}
     Log         ${text}
