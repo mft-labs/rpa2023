@@ -9,4 +9,3 @@ sample*
 **/__pycache__/**
 testfile*.txt
 tools/**
-*log*
