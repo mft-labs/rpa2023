@@ -104,7 +104,7 @@ class HealthCheck:
                 label = fields[0]
                 if str(fields[2]).strip() == '':
                     continue
-                if str(fields[1]).strip().find('test')!=-1:
+                if str(fields[0]).strip().find('test')!=-1:
                     continue
                 url = fields[index].strip()+'://'+str(fields[1]).strip()+str(fields[2]).strip()
                 try:
