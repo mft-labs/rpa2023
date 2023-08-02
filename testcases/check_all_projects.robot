@@ -28,3 +28,7 @@ Check All Projects
         ${status}=      Get Route   ${routes}
         Log     ${status}
     END
+
+Logout From Openshift
+    ${output}=    Run    oc logout
+    Log    ${output}
