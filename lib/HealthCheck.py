@@ -120,9 +120,11 @@ class HealthCheck:
         f.close()
         if error_occurred:
             errors = open(logfile+".err").read()
-            raise Exception("Error occurred while connecting to end points\n{}".format(errors))
+            #raise Exception("Error occurred while connecting to end points\n{}".format(errors))
+            return "Error occurred while connecting to end points\n{}".format(errors)
         else:
             return ""
+
 
 
 

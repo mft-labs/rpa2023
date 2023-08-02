@@ -17,17 +17,20 @@ Check All Projects
     Log         Projects List ${lines}
     ${header}=      Get Line      ${projectslist}   0
     Log     ${header}
+    ${RouteStatus}=         Set Variable    Success
     FOR     ${line}     IN      @{lines}
         Log To Console      ${line}
         @{fields}=  Split String    ${line}
         ${switch2project}=      Run     oc project ${fields}[0]
         Should Contain      ${switch2project}       on project "${fields}[0]"
         # Log To Console      ${switch2project}
-        Log     Checking routes in the project "${fields}[0]"
+        Log To Console      Checking routes in the project "${fields}[0]"
         ${routes}=      Run     oc get routes
-        ${status}=      Get Route   ${routes}
-        Log     ${status}
+        ${rc}   ${status}      Run Keyword And Ignore Error   Get Route   ${routes}
+        Run Keyword If      '${rc}' == 'FAIL'       Log     The error is: ${status}
+        ${RouteStatus}=     Set Variable If      '${rc}' == 'FAIL'      ${status}
     END
+    Should Not Contain      ${RouteStatus}      Error occurred
 
 Logout From Openshift
     ${output}=    Run    oc logout
