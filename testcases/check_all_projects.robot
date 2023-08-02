@@ -28,7 +28,7 @@ Check All Projects
         ${routes}=      Run     oc get routes
         Log     ${routes}
         ${rc}   ${status}      Run Keyword And Ignore Error   Get Route   ${routes}
-        LOG ${status}
+        LOG     ${status}
         Run Keyword If      '${rc}' == 'FAIL'       Log     The error is: ${status}
         ${RouteStatus}=     Set Variable If      '${rc}' == 'FAIL'      ${status}
     END
