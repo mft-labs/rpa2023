@@ -22,7 +22,7 @@ Check All Projects
         Log To Console      ${line}
         @{fields}=  Split String    ${line}
         ${switch2project}=      Run     oc project ${fields}[0]
-        Should Contain      ${switch2project}       on project "${fields}[0]"
+        Should Contain      ${switch2project}       project "${fields}[0]"
         # Log To Console      ${switch2project}
         Log To Console      Checking routes in the project "${fields}[0]"
         ${routes}=      Run     oc get routes
