@@ -17,16 +17,18 @@ Check All Projects
     Log         Projects List ${lines}
     ${header}=      Get Line      ${projectslist}   0
     Log     ${header}
-    ${RouteStatus}=         Set Variable    Success
+    Set Global Variable    ${RouteStatus}         Success
     FOR     ${line}     IN      @{lines}
         Log To Console      ${line}
         @{fields}=  Split String    ${line}
         ${switch2project}=      Run     oc project ${fields}[0]
+        Log      ${switch2project}
         Should Contain      ${switch2project}       project "${fields}[0]"
-        # Log To Console      ${switch2project}
         Log To Console      Checking routes in the project "${fields}[0]"
         ${routes}=      Run     oc get routes
+        Log     ${routes}
         ${rc}   ${status}      Run Keyword And Ignore Error   Get Route   ${routes}
+        LOG ${status}
         Run Keyword If      '${rc}' == 'FAIL'       Log     The error is: ${status}
         ${RouteStatus}=     Set Variable If      '${rc}' == 'FAIL'      ${status}
     END
