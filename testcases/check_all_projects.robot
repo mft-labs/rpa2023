@@ -27,7 +27,7 @@ Check All Projects
         Log To Console      Checking routes in the project "${fields}[0]"
         ${routes}=      Run     oc get routes
         Log     ${routes}
-        ${rc}   ${status}      Run Keyword And Ignore Error   Get Route   ${routes}
+        ${rc}   ${status}      Run Keyword And Ignore Error   Get Route   ${routes}     "${fields}[0]"
         LOG     ${status}
         Run Keyword If      '${rc}' == 'FAIL'       Log     The error is: ${status}
         ${RouteStatus}=     Set Variable If      '${rc}' == 'FAIL'      ${status}    ${RouteStatus}

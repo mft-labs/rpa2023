@@ -4,7 +4,15 @@ import os
 import requests
 from urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
+"""mft-b2bi-sit
 
+   mft-sccm-sit - 443
+   mft-seas-sit - 443
+   mft-cdu-sit:No route
+   mft-ssp-sit:No route
+   mft-ssp2-sit:No route
+   mft-sspcm-sit - 443
+   """
 @library
 class HealthCheck:
     def __init__(self, logname):
@@ -82,13 +90,26 @@ class HealthCheck:
         return colpos
 
     @keyword('Get Route')
-    def get_route(self, text):
+    def get_route(self, text, project):
+        projects = {"mft-b2bi-sit":"443","mft-sccm-sit":"443","mft-seas-sit":"443","mft-sspcm-sit":"443",
+                    "mft-cdu-sit":"No route","mft-ssp-sit":"No route",
+                    "mft-ssp2-sit":"No route"}
+        print('Running Project ',project)
+        port = ""
+        ignore = False
+        if project in projects.keys():
+            port = projects[project]
+            if port == "No route":
+                ignore = True
+        if ignore:
+            return "Ignored"
         logfile2 = self.logname
         base = os.path.basename(self.logname)
         logfile = 'get_route_'+os.path.basename(self.logname)
         logfile = logfile2.replace(base, logfile)
         header_raw, headers, data = self.prepare_data(text)
         f = open(logfile,'w')
+        f.write('Running routes with project '+project+'\n')
         colpos = self.find_cols(header_raw)
         f.write(str(colpos)+'\n')
         index = headers.index('PORT')
@@ -100,9 +121,9 @@ class HealthCheck:
             fields = self.split_string(colpos,rec)
             f.write(str(fields)+'\n')
             f.write('{}\n'.format(fields[index]))
-            if fields[index] == 'https' or fields[index] == 'http':
+            if fields[index] == 'https' or port == "443":
                 label = fields[0]
-                if str(fields[2]).strip() == '':
+                if "b2bi" in project  and str(fields[2]).strip() == '':
                     continue
                 if str(fields[0]).strip().find('test')!=-1:
                     continue
