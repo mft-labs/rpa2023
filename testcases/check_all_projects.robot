@@ -30,7 +30,7 @@ Check All Projects
         ${rc}   ${status}      Run Keyword And Ignore Error   Get Route   ${routes}
         LOG     ${status}
         Run Keyword If      '${rc}' == 'FAIL'       Log     The error is: ${status}
-        ${RouteStatus}=     Set Variable If      '${rc}' == 'FAIL'      ${status}
+        ${RouteStatus}=     Set Variable If      '${rc}' == 'FAIL'      ${status}    ${RouteStatus}
     END
     Should Not Contain      ${RouteStatus}      Error occurred
 

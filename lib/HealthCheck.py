@@ -102,6 +102,10 @@ class HealthCheck:
             f.write('{}\n'.format(fields[index]))
             if fields[index] == 'https' or fields[index] == 'http':
                 label = fields[0]
+                if str(fields[2]).strip() == '':
+                    continue
+                if str(fields[1]).strip().find('test')!=-1:
+                    continue
                 url = fields[index].strip()+'://'+str(fields[1]).strip()+str(fields[2]).strip()
                 try:
                     resp = requests.get(url, verify=False)
@@ -120,8 +124,8 @@ class HealthCheck:
         f.close()
         if error_occurred:
             errors = open(logfile+".err").read()
-            #raise Exception("Error occurred while connecting to end points\n{}".format(errors))
-            return "Error occurred while connecting to end points\n{}".format(errors)
+            raise Exception("Error occurred while connecting to end points\n{}".format(errors))
+            #return "Error occurred while connecting to end points\n{}".format(errors)
         else:
             return ""
 
