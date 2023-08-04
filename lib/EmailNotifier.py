@@ -13,8 +13,6 @@ class EmailNotifier:
     def __init__(self, smtpserver, sender,  username=None, password=None, starttls=False):
         self.smtpserver = smtpserver
         self.sender = sender
-        self.bcc = bcc
-        self.document  = document
         self.starttls = starttls
         self.username = username
         self.password = password
@@ -25,6 +23,7 @@ class EmailNotifier:
             part = MIMEBase("application", "octet-stream")
             part.set_payload(attachment.read())
         encoders.encode_base64(part)
+        filename = os.path.basename(docname).split('/')[-1]
         part.add_header(
             "Content-Disposition",
             f"attachment; filename= {filename}",
@@ -32,15 +31,19 @@ class EmailNotifier:
         return part
 
     @keyword('Send Notification')
-    def send_notification(self, to, cc, bcc, subject, text, doc=None):
+    def send_notification(self, to, cc, bcc, subject, text, doc1=None, doc2=None, doc3=None):
         msg = MIMEMultipart()
         msg['From'] = self.sender
         msg['To'] = ", ".join(to)
         msg['CC'] = ", ".join(cc)
         msg['Subject'] = subject
         msg.attach(MIMEText(text))
-        if doc != None:
-            msg.attach(self.attach_document(doc))
+        if doc1 != None:
+            msg.attach(self.attach_document(doc1))
+        if doc2 != None:
+                    msg.attach(self.attach_document(doc2))
+        if doc3 != None:
+                    msg.attach(self.attach_document(doc3))
         mailServer = smtplib.SMTP(self.smtpserver)
         mailServer.ehlo()
         if self.starttls:
