@@ -1,10 +1,10 @@
 *** Settings ***
-Library     ../lib/EmailNotifier.py     localhost:25     test@localhost
-
+Variables   ../variables/email_config.py
+Library     ../lib/EmailNotifier.py     ${SMTP_SERVER}     ${DEFAULT_SENDER}
 
 *** Test Cases ***
 Send Email Notification
-     ${TO_EMAIL}=       Set Variable        reports@localhost
+     ${Document}=       Set Variable        report.html
      ${SUBJECT}=        Set Variable        Email Notification from Automation Tests
      ${Content}=        Set Variable        This is automated email notification
-     Send Notification     ${TO_EMAIL}     ${SUBJECT}      ${Content}
+     Send Notification     ${NOTIFY_TO_LIST}      ${NOTIFY_CC_LIST}   ${NOTIFY_BCC_LIST}     ${SUBJECT}      ${Content}   ${Document}
